@@ -1,32 +1,180 @@
-# NurseVoice: Design Summary & UX Rationale
-### Frontline Nurse Voice Capture — Conversational AI Prototype
-**Micro-Internship Deliverable · Health-Tech Product Design**
-*Version 1.0 · Prepared for Stakeholder Review*
+# 🏥 NurseVoice
+### Frontline Nurse Intelligence Platform — Conversational AI Prototype
+
+> A high-fidelity mobile prototype that captures frontline nurse voices during their shifts through guided conversational micro-prompts — anonymously, securely, and without disrupting patient care.
 
 ---
 
-## Section 1: Alignment with Clinical Work Realities
+## 📌 Overview
 
-### The Case Against Shared Infrastructure
+NurseVoice is a smartphone-first conversational AI tool built to surface the operational insights of frontline nurses — the equipment failures, unsafe staffing ratios, handoff breakdowns, and coordination gaps that never make it into formal incident reports. Instead of open-ended dictation or institutional feedback forms, NurseVoice uses a structured micro-prompt framework designed around real clinical work realities: high cognitive load, strict time windows, peer surveillance anxiety, and the ever-present possibility of a mid-session emergency.
 
-A foundational assumption in enterprise health-tech design is that clinical staff interact with fixed, institutionally managed hardware — desktop workstations at nursing stations, shared tablet trolleys, or wall-mounted terminals. For the purpose of passive, low-friction insight capture, this assumption is not only architecturally flawed but behaviorally counterproductive. NurseVoice is built on the personal smartphone as its exclusive hardware substrate, and this choice is not incidental — it is load-bearing.
-
-Frontline nurses, particularly on Medical-Surgical, Emergency, and ICU wards, operate within a physical environment defined by continuous lateral movement. Research in clinical workflow analysis consistently identifies the nursing role as one of the highest-mobility professions in any institutional setting, with studies measuring upwards of 5–8 kilometres of walking per 12-hour shift on acute care wards. Shared workstations are therefore not neutrally available tools — they are contested resources, subject to competing access from physicians, pharmacists, and ward clerks, and are often physically located at the periphery of the care environment rather than within the micro-spaces where insight is actually generated: the medication room, the corridor alcove, the locker room doorway.
-
-The personal smartphone resolves this access asymmetry entirely. It is already in the nurse's pocket, already unlocked during natural micro-breaks, and already associated with a private cognitive mode distinct from professional observation. This last point carries psychological weight beyond mere convenience: cognitive science research on context-dependent behaviour demonstrates that the same device used for personal communication activates a different self-disclosure register than an institutionally branded terminal. In designing NurseVoice to live on a personal device, we are not simply choosing a form factor — we are choosing a trust context.
-
-Shift boundaries present a further architectural rationale. The ICU scenario (Amara, post-shift, locker room) illustrates a temporally critical window: the 8–12 minutes immediately following shift end, when clinical memory is still sharp but the nurse has physically separated from the institutional space. No shared hospital workstation is accessible in this window. No paper incident report captures nuanced systemic observation at 7:35am in a changing room. The personal smartphone, and only the personal smartphone, is present for this interaction. Designing away from this reality would mean designing away from some of the richest, most reflective operational insight the system could capture.
-
-### Physical Privacy as a Design Constraint
-
-Ward environments are architecturally transparent. Nursing stations are open-plan, sightlines are long, and peer observation is constant. Any data entry performed on a shared or visible screen is, in practice, semi-public. The scenario for Tobias (ED nurse, 90-second window in a corridor alcove) explicitly surfaces this constraint: the act of using the tool must be indistinguishable from ordinary smartphone use. A dedicated tablet application or workstation-based form fails this test categorically. The personal smartphone, held at a natural reading angle, passes it invisibly.
+This prototype was built as the capstone deliverable of a **40-hour Health-Tech UX Micro-Internship**, progressing from scenario research through conversation flow architecture to a fully interactive, single-file mobile UI.
 
 ---
 
-## Section 2: Trust & Psychological Safety Dynamics
+## 🎯 Problem Statement
 
-### The Surveillance Paradox in Healthcare Feedback Systems
+Frontline nurses hold the most operationally accurate picture of hospital system failures. That picture is routinely lost because:
 
+- Formal incident reporting channels are perceived as punitive
+- Shared hospital workstations are contested, visible, and shift-bound
+- Open-ended feedback tools ignore the cognitive load of post-incident states
+- No existing tool accounts for the reality that any interaction can be interrupted by a patient emergency at any moment
+
+NurseVoice is designed to close this gap.
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
+|---|---|
+| 🔐 **Secure Mode** | Persistent AES-256 encryption badge with animated live status indicator |
+| 🎙️ **Voice Capture** | Mic recording simulation with animated waveform and typewriter transcription |
+| ⚠️ **Noise Error Handling** | Auto-detects simulated low-confidence STT and offers tap/type fallback |
+| 📋 **Guided Micro-Prompts** | 3-question progressive wizard: Trigger → Pattern → Workaround & Fix |
+| 🚨 **Panic Pause Button** | Single-tap emergency exit that freezes, blurs, and locally caches the session |
+| 🛡️ **Anonymisation Engine** | Strips name, unit ID, and shift code before any data transmission |
+| 📊 **Reports Dashboard** | Live status tracker with escalation timeline logs per submitted issue |
+| ✨ **Impact View** | Shows systemic changes driven by anonymised nurse report patterns |
+| 🧠 **Scenario Adaptive** | Prompts dynamically adjust based on selected nurse persona (Med-Surg, ED, ICU, Peds) |
+
+---
+
+## 🗂️ Project Deliverables
+
+This project was completed across four structured phases:
+
+### Phase 1 — Scenario Research
+Four detailed nurse engagement scenarios built from real hospital work realities, each containing a nurse persona, workflow trigger, trust & privacy constraints, and the core operational insight to be captured.
+
+**Personas designed:**
+- Grace · Night Shift Med-Surg · Post near-miss incident
+- Tobias · Emergency Department · Mid-shift 90-second window
+- Amara · Cardiac ICU · End-of-shift locker room
+- Seren · Pediatric Ward · Between-task moral distress window
+
+### Phase 2 — Conversation Flow Architecture
+A complete Mermaid.js flowchart mapping the app's full logic including biometric login, guided Q&A paths, emergency interruption branch, STT noise error loops, and dashboard routing.
+
+### Phase 3 — High-Fidelity UI Prototype
+A single-file interactive mobile prototype (HTML + Tailwind CSS + Vanilla JS) rendered inside a 390×844px smartphone chassis. All buttons are functional and alter UI state dynamically.
+
+### Phase 4 — Design Summary Document
+A 2-page professional design rationale linking every UX and technical decision to clinical workflow research, psychological safety literature, and human factors principles.
+
+---
+
+## 🏗️ Technical Architecture
+
+```
+NurseVoice/
+├── prototype/
+│   └── index.html          # Full app — single file, zero dependencies
+├── flows/
+│   └── conversation_flow.mmd   # Mermaid.js architecture diagram
+├── docs/
+│   └── design_summary.md   # UX rationale & stakeholder document
+└── README.md
+```
+
+**Stack:**
+- **UI:** Vanilla HTML5, CSS3, JavaScript (ES6+)
+- **Styling:** Tailwind CSS utility classes + custom CSS variables
+- **Fonts:** Inter (Google Fonts)
+- **Diagrams:** Mermaid.js
+- **Dependencies:** Zero runtime dependencies — fully self-contained
+
+---
+
+## 📱 Prototype Screens
+
+| Screen | Description |
+|---|---|
+| **Scenario Selector** | Choose nurse persona; unlocks the guided interview |
+| **Q1 — Operational Trigger** | What broke down? Voice or chip selection |
+| **Q2 — Pattern & Frequency** | How often has this occurred? |
+| **Q3 — Workaround & Fix** | What are you doing to compensate, and what would fix it? |
+| **Panic Overlay** | Full-screen blur lock with cache confirmation and resume/discard options |
+| **Submission Confirmation** | Anonymisation checklist and escalation pathway explanation |
+| **Reports Dashboard** | Status-tracked issue cards with timeline logs |
+| **Impact View** | Real systemic changes attributed to nurse report patterns |
+
+---
+
+## 🔐 Privacy & Security Design Principles
+
+NurseVoice is built on the principle that trust must be **warranted by architecture, not requested through promises.**
+
+1. **Local-cache-first** — data is stored on-device before any network sync
+2. **Structural anonymisation** — name, unit, and shift code are stripped before storage; no reverse linkage is possible
+3. **Audio deletion** — voice recordings are discarded after transcription; only text is retained
+4. **Zero confirmation overhead** — the panic pause requires a single tap and produces no sound, alert, or visible state change to bystanders
+5. **Pattern-based escalation** — no single report is attributable; issues auto-escalate only when 3+ nurses report the same pattern
+
+---
+
+## 🧪 Design Research Foundations
+
+| Principle | Application in NurseVoice |
+|---|---|
+| **Cognitive Load Theory** | Micro-prompts offload narrative structure from nurse to interface |
+| **Motivational Interviewing** | Q1→Q2→Q3 arc: immediate reality → pattern recognition → generative fix |
+| **Psychological Safety (Edmondson)** | Operational framing removes welfare stigma from disclosure |
+| **Context-Dependent Behaviour** | Personal device activates different self-disclosure register than institutional terminals |
+| **Human Factors / Clinical Workflow** | Session lengths calibrated to real nurse micro-break windows (90s–8min) |
+
+---
+
+## 🚀 Getting Started
+
+No installation required. The prototype runs entirely in the browser.
+
+```bash
+# Clone the repository
+git clone https://github.com/your-org/nursevoice.git
+
+# Open the prototype
+open prototype/index.html
+```
+
+Or simply open `index.html` in any modern browser. No server, build step, or package manager needed.
+
+---
+
+## 📄 Documentation
+
+- [`docs/design_summary.md`](docs/design_summary.md) — Full UX & technical design rationale (stakeholder-ready)
+- [`flows/conversation_flow.mmd`](flows/conversation_flow.mmd) — Mermaid.js conversation architecture diagram
+
+---
+
+## 🛣️ Potential Next Steps
+
+- [ ] Integrate real Web Speech API for live voice transcription
+- [ ] Connect to a de-identified research backend (e.g. Supabase with RLS policies)
+- [ ] Build native iOS/Android shell via React Native or Capacitor
+- [ ] Add pattern-detection logic for auto-escalation threshold triggers
+- [ ] Conduct usability testing with 5–8 frontline nurses across shift types
+- [ ] Explore integration with existing hospital incident reporting systems via HL7 FHIR
+
+---
+
+## 👤 Author
+
+Built as a **Health-Tech UX Micro-Internship** capstone project.
+Designed from the perspective of a Principal Healthcare UX Designer & Health-Tech Product Manager.
+
+---
+
+## ⚖️ Disclaimer
+
+NurseVoice is a research prototype. It is not a certified medical device and is not intended for clinical deployment without appropriate regulatory review, IRB approval for data collection, and full security audit. All nurse personas and report data shown in the prototype are fictional and created for design demonstration purposes only.
+
+---
+
+*"The most important clinical data in any hospital is the knowledge inside the heads of nurses at the end of a 12-hour shift. NurseVoice is built to catch it before it disappears."*
 Healthcare institutions have, over decades, constructed formal feedback infrastructure — incident reporting portals, patient safety surveys, near-miss logs — that are structurally distrusted by the very workforce they are designed to serve. The mechanism of this distrust is well-documented in organisational psychology literature: when feedback channels are administered by the same institutional hierarchy that holds disciplinary authority, the rational calculus for frontline workers shifts from disclosure to self-protection. Nurses do not withhold information because they are disengaged; they withhold it because the risk-reward structure of formal reporting is, in many institutional cultures, genuinely adverse.
 
 NurseVoice addresses this paradox not through reassurance, but through architecture. The distinction is critical. A system that tells nurses their data is safe is asking for trust. A system that makes it structurally impossible to violate that safety is warranting trust. Every element of the NurseVoice security model is designed to warrant rather than request.
